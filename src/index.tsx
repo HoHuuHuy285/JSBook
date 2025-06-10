@@ -1,20 +1,20 @@
-import * as esbuild from 'esbuild-wasm';
-import { useState, useEffect, useRef } from 'react';
+import * as esbuild from "esbuild-wasm";
+import { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom/client";
-import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
+import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
 const el = document.getElementById("root");
 
 const root = ReactDOM.createRoot(el!);
 
 const App = () => {
   const ref = useRef<any>();
-  const [input, setInput] = useState('');
-  const [code, setCode] = useState('');
+  const [input, setInput] = useState("");
+  const [code, setCode] = useState("");
 
   const startService = async () => {
     ref.current = await esbuild.startService({
       worker: true,
-      wasmURL: '/esbuild.wasm',
+      wasmURL: "/esbuild.wasm",
     });
   };
   useEffect(() => {
@@ -27,7 +27,7 @@ const App = () => {
     }
 
     const result = await ref.current.build({
-      entryPoints: ['index.js'],
+      entryPoints: ["index.js"],
       bundle: true,
       write: false,
       plugins: [unpkgPathPlugin()],
